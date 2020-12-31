@@ -51,6 +51,7 @@ int isOprator(char op){
 }
 void infixToPostfixConversion(char infix[],char postfix[]){
     int i,j,k;
+    char temp;
     for(i=0,j=0;infix[i]!='\0'; ){
         if(isalnum(infix[i])>0){
             postfix[j++]=infix[i++];
@@ -61,10 +62,11 @@ void infixToPostfixConversion(char infix[],char postfix[]){
             else if(infix[i]==')'){
                 for(k=top;stack[k]!='(';k--)
                     postfix[j++]=pop();
+               temp =pop();
             }
             i++;
         }
-        else {
+        else if(isOprator(infix[i])==1){
             if(presidance(infix[i])>presidance(stack[top])||isNull())
                 push(infix[i++]);
             else if(presidance(infix[i])<presidance(stack[top]))
@@ -79,15 +81,17 @@ void infixToPostfixConversion(char infix[],char postfix[]){
             }
         }
     }
-   
-    while(isNull()!=1)
+    
+    while(isNull()!=1){
         postfix[j++]=pop();
-    postfix[i]='\0';
+    }
+    postfix[j]='\0';
 }
 void main(){
-    char infix[10],postfix[10];
-    readInfix(infix);
-    printf("\n infix Exprission is : %s" , infix);
-    infixToPostfixConversion(infix,postfix);
-    printf("\nPostfix is %s\n",postfix);
+    char Infix[10];
+    char Postfix[10];
+    readInfix(Infix);
+    printf("\n infix Exprission is : %s" , Infix);
+    infixToPostfixConversion(Infix,Postfix);
+    printf("\nPostfix is :%s\n",Postfix);
 }
