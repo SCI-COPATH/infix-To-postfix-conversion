@@ -52,6 +52,8 @@ int isOprator(char op){
 void infixToPostfixConversion(char infix[],char postfix[]){
     int i,j,k;
     char temp;
+    push('(');
+    strcat(infix,")");
     for(i=0,j=0;infix[i]!='\0'; ){
         if(isalnum(infix[i])>0){
             postfix[j++]=infix[i++];
@@ -67,13 +69,13 @@ void infixToPostfixConversion(char infix[],char postfix[]){
             i++;
         }
         else if(isOprator(infix[i])==1){
-            if(presidance(infix[i])>presidance(stack[top])||isNull())
+            if(presidance(infix[i])>presidance(stack[top]))
                 push(infix[i++]);
             else if(presidance(infix[i])<presidance(stack[top]))
                 postfix[j++]=pop();
             else{
                 if(presidance(infix[i]==3))
-                    push(infix[i++]);
+                    push(infix[i++]);    
                 else{
                     postfix[j++]=pop();
                     push(infix[i++]);
